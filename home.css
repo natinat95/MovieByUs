@@ -1,0 +1,127 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-image: url('img/fondo.jpg');
+    background-size: cover;           /* La imagen cubre toda la pantalla */
+    background-position: center;      /* Centrada */
+    background-repeat: no-repeat;     /* No se repite */
+    background-attachment: fixed;     /* Efecto de fondo fijo */
+    color: white;
+  }
+
+  .logo-highlight {
+    color: #ef4444;
+  }
+  
+  .btn-primary {
+    background: linear-gradient(to right, #ef4444, #b91c1c);
+    transition: all 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 15px -3px rgba(239, 68, 68, 0.3);
+  }
+  
+  .section-title {
+    position: relative;
+    font-weight: 800;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .section-title::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -10px;
+    height: 4px;
+    width: 100px;
+    background: linear-gradient(to right, #ef4444, #b91c1c);
+    border-radius: 2px;
+  }
+  
+  .card {
+    transition: all 0.3s ease;
+    background-color: rgba(31, 31, 31, 0.8);
+    
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+  }
+  
+  .animated-icon {
+    transition: all 0.3s ease;
+  }
+  
+  .animated-icon:hover {
+    transform: scale(1.1);
+  }
+  
+  .input-field:focus {
+    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.3);
+  }
+
+  .swiper {
+    width: 100%;
+    height: 380px; /* más alto para que las tarjetas tengan margen */
+  }
+  
+  
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+  }
+  
+  .card-top-rated {
+    width: 100%;
+    height: 100%;
+    max-width: 480px;
+    min-height: 360px; /* más espacio vertical */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #1f1f1f;
+    border-radius: 0.5rem;
+    border: 1px solid #3f3f3f;
+    overflow: hidden;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+  }
+  
+  
+  .card-top-rated:hover {
+    transform: scale(1.03);
+    border-radius: 0.5rem; /* reafirma borde redondeado en hover */
+  }
+  
+  .card-top-rated img {
+    width: 100%;
+    height: 200px; /* h-48 */
+    object-fit: cover;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+  }
+  
+  .card-top-rated .p-4 {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .card-top-rated h3 {
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: #ef4444;
+    margin-bottom: 0.25rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  

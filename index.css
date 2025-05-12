@@ -1,0 +1,341 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+    
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #0a0a0a;
+  scroll-behavior: smooth;
+}
+
+/* Preloader */
+#preloader {
+  transition: opacity 0.3s ease;
+}
+
+/* Text shadow utilities */
+.text-shadow {
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.text-shadow-sm {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Swiper styling */
+.swiper {
+  width: 100%;
+  height: 85vh;
+}
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+
+.swiper-slide::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.3) 100%);
+}
+
+.slide-content {
+  position: relative;
+  z-index: 10;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 5rem;
+}
+
+.logo-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  padding: 1.5rem 0;
+  transition: all 0.3s ease;
+}
+
+.logo-container.scrolled {
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 0.75rem 0;
+  box-shadow: 0 4px 20px rgba(229, 62, 62, 0.15);
+}
+
+.logo-content {
+  position: relative;
+  overflow: hidden;
+  padding: 0.75rem 1.5rem;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, rgba(20, 20, 20, 0.8) 0%, rgba(30, 30, 30, 0.6) 100%);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transform: translateY(0);
+  transition: all 0.3s ease;
+}
+
+.logo-content:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(229, 62, 62, 0.2);
+  border-color: rgba(229, 62, 62, 0.3);
+}
+
+.logo-text {
+  background: linear-gradient(90deg, #ffffff 0%, #f0f0f0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+  letter-spacing: 1px;
+}
+
+.logo-highlight {
+  background: linear-gradient(90deg, #ff3d3d 0%, #ff7878 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Form container styling */
+.form-container {
+  background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(15, 15, 15, 0.95) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+  transform: translateY(0);
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.form-container:hover {
+  transform: translateY(-5px);
+  border-color: rgba(229, 62, 62, 0.2);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+}
+
+/* Tab styling */
+.tab-active {
+  background: linear-gradient(to right, #e53e3e, #d61c1c);
+  color: white;
+  box-shadow: 0 5px 15px rgba(229, 62, 62, 0.35);
+}
+
+#login-tab, #register-tab {
+  transition: all 0.3s ease;
+}
+
+#login-tab:hover, #register-tab:hover {
+  background-color: rgba(229, 62, 62, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Form content animations */
+#login-content, #register-content {
+  opacity: 1;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#login-content.hidden, #register-content.hidden {
+  display: none;
+}
+
+/* Form input styling */
+.input-field {
+  transition: all 0.3s ease;
+  border: 1px solid rgba(107, 114, 128, 0.3);
+}
+
+.input-field:focus {
+  border-color: #e53e3e;
+  box-shadow: 0 0 0 2px rgba(229, 62, 62, 0.2);
+}
+
+/* Button icon animation */
+.animated-icon {
+  transition: all 0.3s ease;
+}
+
+button:hover .animated-icon {
+  transform: translateX(5px);
+}
+
+/* Swiper pagination customization */
+.swiper-pagination-bullet {
+  width: 12px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.swiper-pagination-bullet-active {
+  background: #e53e3e;
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: rgba(255, 255, 255, 0.7);
+  transition: all 0.3s ease;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: #e53e3e;
+}
+
+/* Slide content animations */
+.slide-title {
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.8s ease;
+  transition-delay: 0.3s;
+}
+
+.slide-desc {
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.8s ease;
+  transition-delay: 0.5s;
+}
+
+.slide-btn {
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.8s ease;
+  transition-delay: 0.7s;
+}
+
+.swiper-slide-active .slide-title,
+.swiper-slide-active .slide-desc,
+.swiper-slide-active .slide-btn {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Main content styling */
+.main-content {
+  position: relative;
+  z-index: 10;
+  margin-top: 0; /* Cambiado de 1rem a 0 */
+  padding-top: 0; /* Cambiado de 1rem a 0 */
+  padding-bottom: 0; /* Cambiado de 1rem a 0 */
+  background-color: #0a0a0a;
+}
+
+.access-section {
+  position: relative;
+}
+
+.access-section::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  left: 0;
+  right: 0;
+  height: 150px;
+  background: linear-gradient(to bottom, transparent 0%, #0a0a0a 100%);
+  z-index: 5;
+}
+
+/* 3D card effect */
+.perspective {
+  perspective: 1000px;
+}
+
+#card {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Toast notifications */
+.toast {
+  animation: toast-in 0.3s ease forwards;
+}
+
+.toast.hiding {
+  animation: toast-out 0.3s ease forwards;
+}
+
+@keyframes toast-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes toast-out {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Mobile menu animation */
+#mobile-menu {
+  transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* Feature card hover effect */
+.features .bg-gradient-to-br {
+  transition: all 0.3s ease;
+}
+
+.features .bg-gradient-to-br:hover {
+  background: linear-gradient(135deg, rgba(229, 62, 62, 0.1) 0%, rgba(20, 20, 20, 0.8) 100%);
+  border-color: rgba(229, 62, 62, 0.3);
+}
+
+/* Scroll to top button */
+#scroll-to-top {
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .swiper {
+    height: 75vh;
+  }
+  
+  .slide-content {
+    padding-bottom: 3rem;
+  }
+}
+
+/* Loading skeleton animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MovieByUs - Tu comunidad cinematográfica</title>
+  <meta name="description" content="Descubre, comparte y comenta tus películas favoritas con la comunidad de MovieByUs">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="index.css">
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+</head>
+
+<body class="text-white min-h-screen flex flex-col bg-gradient-to-b from-black to-gray-900">
+  <!-- Preloader -->
+  <div id="preloader" class="fixed inset-0 z-50 flex items-center justify-center bg-black">
+    <div class="relative">
+      <div class="w-16 h-16 border-4 border-red-600 border-t-transparent rounded-full animate-spin"></div>
+      <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+        <i class="fas fa-film text-red-600 text-xl animate-pulse"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header con Swiper slider -->
+  <header class="w-full relative">
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide bg-cover bg-center" style="background-image: url('img/fondo.jpg')">
+          <div class="slide-content">
+            <div class="container mx-auto px-6 md:px-12">
+              <h2 class="slide-title text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 max-w-xl text-shadow">Descubre Nuevas Películas</h2>
+              <p class="slide-desc text-lg md:text-xl font-light max-w-lg leading-relaxed text-shadow-sm">Explora y Comparte Tus Películas Favoritas.</p>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide bg-cover bg-center" style="background-image: url('img/fondo2.jpg')">
+          <div class="slide-content">
+            <div class="container mx-auto px-6 md:px-12">
+              <h2 class="slide-title text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 max-w-xl text-shadow">Califica Películas y Ayuda a la Comunidad </h2>
+              <p class="slide-desc text-lg md:text-xl font-light max-w-lg leading-relaxed text-shadow-sm">Vota las películas que has visto y contribuye a la puntuación media visible por todos.</p>
+              <div class="mt-6 flex items-center gap-3 slide-btn">
+                <div class="flex">
+                  <i class="fas fa-star text-yellow-400"></i>
+                  <i class="fas fa-star text-yellow-400"></i>
+                  <i class="fas fa-star text-yellow-400"></i>
+                  <i class="fas fa-star text-yellow-400"></i>
+                  <i class="fas fa-star-half-alt text-yellow-400"></i>
+                </div>
+                <span class="font-medium">4.5 promedio de usuarios</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide bg-cover bg-center" style="background-image: url('img/fondo4.jpg')">
+          <div class="slide-content">
+            <div class="container mx-auto px-6 md:px-12">
+              <h2 class="slide-title text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 max-w-xl text-shadow">Encuentra Recomendaciones</h2>
+              <p class="slide-desc text-lg md:text-xl font-light max-w-lg leading-relaxed text-shadow-sm"> Filtra por género, duración y puntuación para encontrar películas.</p>
+              <div class="mt-6 flex gap-2 slide-btn">
+                <span class="px-3 py-1 bg-red-600/80 rounded-full text-sm font-medium">Acción</span>
+                <span class="px-3 py-1 bg-red-600/80 rounded-full text-sm font-medium">Ciencia ficción</span>
+                <span class="px-3 py-1 bg-red-600/80 rounded-full text-sm font-medium">Drama</span>
+                <span class="px-3 py-1 bg-red-600/80 rounded-full text-sm font-medium">Comedia</span>
+                <span class="px-3 py-1 bg-red-600/80 rounded-full text-sm font-medium">Terror</span>
+                <span class="px-3 py-1 bg-red-600/80 rounded-full text-sm font-medium">Romántica</span>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+    
+    <!-- Logo mejorado -->
+    <div class="logo-container" id="logoContainer">
+      <div class="container mx-auto px-6 flex justify-between items-center">
+        <div class="logo-content flex items-center">      
+          <div class="relative">
+            <div class="absolute -inset-1 bg-gradient-to-r from-red-500 to-red-700 rounded-full opacity-75 blur-sm animate-pulse"></div>
+            <div class="relative bg-black rounded-full p-2">
+              <i class="fas fa-film text-red-600 text-3xl"></i>
+            </div>
+          </div>
+          <h1 class="logo-text text-2xl md:text-4xl font-black uppercase tracking-wider ml-3">
+            Movie<span class="logo-highlight">ByUs</span>
+          </h1>
+        </div>
+
+        
+        <!-- Menú móvil -->
+        <button class="block md:hidden text-white focus:outline-none" id="menu-toggle">
+          <i class="fas fa-bars text-2xl"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Menú móvil desplegable -->
+    <div id="mobile-menu" class="fixed inset-0 bg-black/95 z-40 transform -translate-y-full transition-transform duration-300 ease-in-out">
+      <div class="container mx-auto px-6 py-8">
+        <div class="flex justify-end mb-8">
+          <button id="close-menu" class="text-white focus:outline-none">
+            <i class="fas fa-times text-2xl"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Contenedor principal -->
+  <div class="main-content">
+    <!-- Sección CTA -->
+    <section class="py-16 bg-gradient-to-b from-gray-900 to-black relative overflow-hidden">
+      <div class="absolute -top-1/2 -right-1/4 w-3/4 h-full rounded-full bg-gradient-to-br from-red-700/10 to-red-900/5 blur-3xl"></div>
+      <div class="container mx-auto px-6 relative z-10">
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-8 text-center">
+          Comienza Tu <span class="text-red-500">Experiencia Cinematográfica</span>
+        </h2>
+        <p class="text-xl text-center text-gray-300 max-w-3xl mx-auto mb-10">
+          Únete a nuestra comunidad de cinéfilos, comparte tus opiniones y descubre películas que te sorprenderán.
+        </p>
+      </div>
+    </section>
+    
+    <!-- Sección de formulario mejorada -->
+    <section class="form-section container mx-auto px-6 py-16 -mt-6">
+      <div class="form-container mx-auto p-8 md:p-10 rounded-3xl w-full max-w-md perspective" id="auth-form">
+        <div id="card" class="relative w-full transition-transform duration-700 transform-style-preserve-3d backface-hidden">
+          <!-- Selector de formulario -->
+          <div class="flex mb-8 bg-gray-800/30 p-1 rounded-xl">
+            <button id="login-tab" class="flex-1 py-3 px-4 rounded-lg text-center font-semibold tab-active">
+              Iniciar sesión
+            </button>
+            <button id="register-tab" class="flex-1 py-3 px-4 rounded-lg text-center font-semibold">
+              Registrarse
+            </button>
+          </div>
+          
+          <!-- Formulario de Inicio de Sesión -->
+          <div id="login-content">
+            <h2 class="text-3xl font-bold text-center mb-8">Bienvenido de nuevo</h2>
+            <div class="space-y-6">
+              
+              <div>
+                <label for="login-email" class="block text-sm font-medium text-gray-300 mb-2">Correo electrónico</label>
+                <div class="relative">
+                  <input type="email" id="login-email" placeholder="correo@ejemplo.com"
+                    class="input-field w-full p-4 pl-12 rounded-xl bg-gray-800/50 text-white focus:outline-none" />
+                  <i class="fas fa-envelope absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                </div>
+              </div>
+
+              <div>
+                <label for="login-password" class="block text-sm font-medium text-gray-300 mb-2">Contraseña</label>
+                <div class="relative">
+                  <input type="password" id="login-password" placeholder="••••••••"
+                    class="input-field w-full p-4 pl-12 rounded-xl bg-gray-800/50 text-white focus:outline-none" />
+                  <i class="fas fa-lock absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                  <i class="far fa-eye absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer hover:text-red-500 transition-colors"
+                    onclick="togglePassword('login-password', this)"></i>
+                </div>
+                <div class="text-right mt-2">
+                  <a href="#" onclick="resetPassword()" class="text-sm text-red-400 hover:text-red-300 transition-colors">
+                    ¿Olvidaste tu contraseña?
+                  </a>
+                </div>
+              </div>
+
+              <button onclick="login()"
+                class="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold py-4 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-red-600/30 flex items-center justify-center gap-2">
+                <span>Entrar</span>
+                <i class="fas fa-arrow-right animated-icon"></i>
+              </button>
+            </div>
+            
+    
+          </div>
+          
+       <!-- Formulario de Registro -->
+<div id="register-content" class="hidden">
+  <h2 class="text-3xl font-bold text-center mb-8">Crear cuenta</h2>
+  <div class="space-y-6">
+    <div>
+      <label for="register-username" class="block text-sm font-medium text-gray-300 mb-2">Nombre de usuario</label>
+      <div class="relative">
+        <input type="text" id="register-username" placeholder="Tu nombre o apodo"
+          class="input-field w-full p-4 pl-12 rounded-xl bg-gray-800/50 text-white focus:outline-none" />
+        <i class="fas fa-user absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+      </div>
+    </div>
+    
+    <div>
+      <label for="register-email" class="block text-sm font-medium text-gray-300 mb-2">Correo electrónico</label>
+      <div class="relative">
+        <input type="email" id="register-email" placeholder="correo@ejemplo.com"
+          class="input-field w-full p-4 pl-12 rounded-xl bg-gray-800/50 text-white focus:outline-none" />
+        <i class="fas fa-envelope absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+      </div>
+    </div>
+
+    <div>
+      <label for="register-password" class="block text-sm font-medium text-gray-300 mb-2">Contraseña</label>
+      <div class="relative">
+        <input type="password" id="register-password" placeholder="••••••••"
+          class="input-field w-full p-4 pl-12 rounded-xl bg-gray-800/50 text-white focus:outline-none" />
+        <i class="fas fa-lock absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+        <i class="far fa-eye absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer hover:text-red-500 transition-colors"
+          onclick="togglePassword('register-password', this)"></i>
+      </div>
+    </div>
+
+    <div>
+      <label for="register-confirm" class="block text-sm font-medium text-gray-300 mb-2">Confirmar contraseña</label>
+      <div class="relative">
+        <input type="password" id="register-confirm" placeholder="••••••••"
+          class="input-field w-full p-4 pl-12 rounded-xl bg-gray-800/50 text-white focus:outline-none" />
+        <i class="fas fa-lock absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+        <i class="far fa-eye absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer hover:text-red-500 transition-colors"
+          onclick="togglePassword('register-confirm', this)"></i>
+      </div>
+    </div>
+    
+    <div class="flex items-center">
+      <input type="checkbox" id="terms" class="w-4 h-4 bg-gray-800 border-gray-700 rounded focus:ring-red-500 focus:ring-offset-gray-800">
+      <label for="terms" class="ml-2 text-sm text-gray-300">Acepto los <a href="#" class="text-red-400 hover:text-red-300">Términos</a> y <a href="#" class="text-red-400 hover:text-red-300">Política de Privacidad</a></label>
+    </div>
+
+    <button id="register-button"
+    class="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold py-4 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-red-600/30 flex items-center justify-center gap-2">
+    <span>Crear cuenta</span>
+    <i class="fas fa-user-plus animated-icon"></i>
+  </button>
+  
+  </div>
+</div>
+    </section>
+    
+    <!-- Seccion testimonios reales -->
+    <section class="testimonials py-16 bg-gradient-to-b from-black to-gray-900">
+      <div class="container mx-auto px-6">
+        <h2 class="text-3xl md:text-4xl font-bold mb-16 text-center">
+          Lo que dicen nuestros <span class="text-red-500">usuarios</span>
+        </h2>
+        <div id="dynamic-testimonials" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Aquí se cargarán los comentarios reales -->
+        </div>
+      </div>
+    </section>
+    
+</div>
+
+<footer class="bg-black py-10 border-t border-gray-800">
+  <div class="container mx-auto px-6">
+    <div class="flex flex-col md:flex-row justify-between items-center">
+      <div class="mb-6 md:mb-0">
+        <div class="flex items-center justify-center md:justify-start">
+          <i class="fas fa-film text-red-600 text-xl mr-2"></i>
+          <h2 class="text-2xl font-bold">Movie<span class="text-red-500">ByUs</span></h2>
+        </div>
+        <p class="text-gray-500 mt-2 text-center md:text-left">Tu comunidad de cine favorita</p>
+      </div>
+      
+      <div class="flex space-x-4">
+        <a href="#" class="text-gray-400 hover:text-red-500 transition-colors">
+          <i class="fab fa-facebook-f text-xl"></i>
+        </a>
+        <a href="#" class="text-gray-400 hover:text-red-500 transition-colors">
+          <i class="fab fa-instagram text-xl"></i>
+        </a>
+      </div>
+    </div>
+    
+    <div class="mt-8 pt-8 border-t border-gray-800 text-center text-sm text-gray-500">
+      <p>© 2025 MovieByUs - Todos los derechos reservados</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Botón de scroll to top -->
+<button id="scroll-to-top" class="fixed bottom-6 right-6 bg-red-600 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg shadow-red-600/30 cursor-pointer transform transition-all duration-300 scale-0 hover:scale-110 z-50">
+<i class="fas fa-chevron-up"></i>
+</button>
+
+<!-- Toast container -->
+<div id="toast-container" class="fixed bottom-5 right-5 z-50 space-y-2"></div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<script src="index.js"></script>
+
+<!-- Firebase App (core) -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<!-- Firebase Authentication -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<!-- Firebase Realtime Database -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="app.js"></script>
+
+<!-- Script adicional para las nuevas funcionalidades -->
+<script>
+// Preloader
+window.addEventListener('load', function() {
+const preloader = document.getElementById('preloader');
+setTimeout(() => {
+preloader.style.opacity = '0';
+setTimeout(() => {
+preloader.style.display = 'none';
+}, 300);
+}, 500);
+});
+// Scroll to top button
+const scrollToTopButton = document.getElementById('scroll-to-top');
+
+window.addEventListener('scroll', function() {
+if (window.scrollY > 300) {
+scrollToTopButton.classList.remove('scale-0');
+scrollToTopButton.classList.add('scale-100');
+} else {
+scrollToTopButton.classList.remove('scale-100');
+scrollToTopButton.classList.add('scale-0');
+}
+});
+
+scrollToTopButton.addEventListener('click', function() {
+window.scrollTo({
+top: 0,
+behavior: 'smooth'
+});
+});
+</script>
+</body>
+
+</html>
