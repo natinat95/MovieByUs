@@ -1,4 +1,4 @@
-// ✅ FUNCIONES GLOBALES
+
 window.syncInitialRatings = function (uid) {
   const db = firebase.database();
   const moviesRef = db.ref(`/movies/${uid}`);
