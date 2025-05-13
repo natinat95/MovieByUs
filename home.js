@@ -108,9 +108,12 @@ ${!hideRating ? `<p class="text-sm text-gray-300">⭐ Puntuación: <span id="rat
   
           ${isMine ? `<button onclick="deleteMovie('${key}')" class="absolute top-2 left-2 text-sm bg-red-600 hover:bg-red-700 px-3 py-1 rounded">🗑️</button>` : ""}
         </div>
-        <button onclick="showCommentsModal('${movieId}')" class="mt-3 text-sm bg-red-600 hover:bg-red-700 px-4 py-2 rounded">
-        Ver comentarios
-        </button>
+      ${!isTopRated ? `
+  <button onclick="showCommentsModal('${movieId}')" class="mt-3 text-sm bg-red-600 hover:bg-red-700 px-4 py-2 rounded">
+    Ver comentarios
+  </button>
+` : ""}
+
 
 
 
@@ -187,23 +190,30 @@ function loadTopRatedMovies() {
 
       const seenTitles = new Set();
 
-      avgRatings.forEach(({ movieId, avg }) => {
-        const movie = allMovies.find(m => m.key === movieId);
-        if (movie && !seenTitles.has(movie.title)) {
-          seenTitles.add(movie.title);
+      const slides = [];
 
-          const slide = document.createElement("div");
-          slide.className = "swiper-slide";
-          slide.innerHTML = renderMovieCard(movie, movieId, false, true);
-          topRatedContainer.appendChild(slide);
-          calculateAverageRating(movieId);
-        }
-      });
+    avgRatings.forEach(({ movieId, avg }) => {
+      const movie = allMovies.find(m => m.key === movieId);
+      if (movie && !seenTitles.has(movie.title)) {
+        seenTitles.add(movie.title);
 
+        const slide = document.createElement("div");
+        slide.className = "swiper-slide";
+        slide.innerHTML = renderMovieCard(movie, movieId, false, true);
+        slides.push(slide);
+        calculateAverageRating(movieId);
+      }
+    });
+
+    // Añadir los originales
+    slides.forEach(slide => topRatedContainer.appendChild(slide));
+    // Añadir duplicados para que el loop funcione sin pausa
+    slides.forEach(slide => topRatedContainer.appendChild(slide.cloneNode(true)));
 
       activarSistemaDePuntuacion();
-      const numSlides = document.querySelectorAll('.topSwiper .swiper-slide').length;
-      const canLoop = numSlides > 4;
+     
+      const canLoop = true;
+
 
       new Swiper(".topSwiper", {
         slidesPerView: 1,
@@ -223,7 +233,6 @@ function loadTopRatedMovies() {
     });
   });
 }
-
 // Llama a la función al cargar
 loadTopRatedMovies();
 
