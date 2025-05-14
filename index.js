@@ -14,7 +14,7 @@ function showToast(message, type) {
   const toast = document.createElement("div");
   toast.className = `flex items-center ${colors[type] || "bg-gray-800"} text-white text-sm font-semibold px-4 py-3 rounded shadow-lg transition-opacity duration-300 animate-fade-in`;
   toast.innerHTML = `<i class="fas ${type === "error" ? "fa-times-circle" : "fa-check-circle"} mr-2"></i> ${message}`;
-  
+
   container.appendChild(toast);
 
   setTimeout(() => {
@@ -38,7 +38,7 @@ var swiper = new Swiper(".mySwiper", {
 });
 
 // ✅ Efecto scroll para header
-window.addEventListener('scroll', function() {
+window.addEventListener('scroll', function () {
   const logoContainer = document.getElementById('logoContainer');
   if (window.scrollY > 50) {
     logoContainer.classList.add('scrolled');
@@ -48,7 +48,7 @@ window.addEventListener('scroll', function() {
 });
 
 // ✅ Al cargar la página
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const loginTab = document.getElementById('login-tab');
   const registerTab = document.getElementById('register-tab');
   const loginContent = document.getElementById('login-content');
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ✅ Función global para REGISTRAR usuario
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const registerButton = document.getElementById('register-button');
 
   if (registerButton) {
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const termsChecked = document.getElementById("terms")?.checked;
 
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      
+
       if (!username) {
         return showToast("Introduce un nombre de usuario", "error");
       }
@@ -129,20 +129,20 @@ document.addEventListener('DOMContentLoaded', function() {
       }
 
       firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        const uid = userCredential.user.uid;
-        return firebase.database().ref(`/users/${uid}`).set({
-          username: document.getElementById("register-username").value.trim()
+        .then((userCredential) => {
+          const uid = userCredential.user.uid;
+          return firebase.database().ref(`/users/${uid}`).set({
+            username: document.getElementById("register-username").value.trim()
+          });
+        })
+        .then(() => {
+          showToast("Cuenta creada con éxito. Ahora inicia sesión.");
+          showLogin(); // Redirige a iniciar sesión
+        })
+        .catch((error) => {
+          console.error(error);
+          showToast("Error al registrar: " + error.message, "error");
         });
-      })
-      .then(() => {
-        showToast("Cuenta creada con éxito. Ahora inicia sesión.");
-        showLogin(); // Redirige a iniciar sesión
-      })    
-      .catch((error) => {
-        console.error(error);
-        showToast("Error al registrar: " + error.message, "error");
-      });
     });
   }
 });
@@ -180,7 +180,7 @@ window.resetPassword = function () {
     });
 };
 
-window.showLogin = function() {
+window.showLogin = function () {
   const loginTab = document.getElementById('login-tab');
   const registerTab = document.getElementById('register-tab');
   const loginContent = document.getElementById('login-content');
@@ -259,7 +259,8 @@ function loadRandomTestimonials() {
   });
 }
 
-//  Mostrar y ocultar preloader al cargar
+
+// ✅ Mostrar y ocultar preloader al cargar
 window.addEventListener('load', function () {
   const preloader = document.getElementById('preloader');
   setTimeout(() => {
@@ -294,3 +295,39 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
+//  Overlay y banner de cookies
+document.addEventListener('DOMContentLoaded', function () {
+  const banner = document.getElementById('cookie-banner');
+  const overlay = document.getElementById('cookie-overlay');
+  const acceptBtn = document.getElementById('accept-cookies');
+  const infoBtn = document.getElementById('more-info');
+
+  const showCookieDialog = () => {
+    banner.classList.remove('opacity-0', 'pointer-events-none', 'scale-95');
+    banner.classList.add('opacity-100', 'pointer-events-auto', 'scale-100');
+
+    overlay.classList.remove('opacity-0', 'pointer-events-none');
+    overlay.classList.add('opacity-100', 'pointer-events-auto');
+  };
+
+  const hideCookieDialog = () => {
+    banner.classList.remove('opacity-100', 'pointer-events-auto', 'scale-100');
+    banner.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
+
+    overlay.classList.remove('opacity-100', 'pointer-events-auto');
+    overlay.classList.add('opacity-0', 'pointer-events-none');
+  };
+
+  if (!localStorage.getItem('cookies-accepted')) {
+    showCookieDialog();
+  }
+
+  acceptBtn.addEventListener('click', function () {
+    localStorage.setItem('cookies-accepted', 'true');
+    hideCookieDialog();
+  });
+
+  infoBtn.addEventListener('click', function () {
+    window.location.href = 'politica-de-cookies.html';
+  });
+});
