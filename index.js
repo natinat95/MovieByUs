@@ -259,3 +259,38 @@ function loadRandomTestimonials() {
   });
 }
 
+//  Mostrar y ocultar preloader al cargar
+window.addEventListener('load', function () {
+  const preloader = document.getElementById('preloader');
+  setTimeout(() => {
+    preloader.style.opacity = '0';
+    setTimeout(() => {
+      preloader.style.display = 'none';
+    }, 300);
+  }, 500);
+});
+
+// ✅ Botón de scroll to top
+document.addEventListener('DOMContentLoaded', function () {
+  const scrollToTopButton = document.getElementById('scroll-to-top');
+
+  if (!scrollToTopButton) return;
+
+  window.addEventListener('scroll', function () {
+    if (window.scrollY > 300) {
+      scrollToTopButton.classList.remove('scale-0');
+      scrollToTopButton.classList.add('scale-100');
+    } else {
+      scrollToTopButton.classList.remove('scale-100');
+      scrollToTopButton.classList.add('scale-0');
+    }
+  });
+
+  scrollToTopButton.addEventListener('click', function () {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+});
+
