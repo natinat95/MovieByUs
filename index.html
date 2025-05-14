@@ -284,38 +284,6 @@
 <script src="firebase-config.js"></script>
 <script src="app.js"></script>
 
-<!-- Script adicional para las nuevas funcionalidades -->
-<script>
-// Preloader
-window.addEventListener('load', function() {
-const preloader = document.getElementById('preloader');
-setTimeout(() => {
-preloader.style.opacity = '0';
-setTimeout(() => {
-preloader.style.display = 'none';
-}, 300);
-}, 500);
-});
-// Scroll to top button
-const scrollToTopButton = document.getElementById('scroll-to-top');
-
-window.addEventListener('scroll', function() {
-if (window.scrollY > 300) {
-scrollToTopButton.classList.remove('scale-0');
-scrollToTopButton.classList.add('scale-100');
-} else {
-scrollToTopButton.classList.remove('scale-100');
-scrollToTopButton.classList.add('scale-0');
-}
-});
-
-scrollToTopButton.addEventListener('click', function() {
-window.scrollTo({
-top: 0,
-behavior: 'smooth'
-});
-});
-</script>
 </body>
 
 </html>
