@@ -35,21 +35,17 @@
     </div>
   </header>
 
-  <!-- Main -->
   <main class="container mx-auto px-6 py-10 flex-grow">
 
-    <!-- Películas Mejor Valoradas -->
 <section id="top-rated-slider" class="mb-16">
   <h2 class="section-title text-3xl md:text-4xl mb-10">Mejor Valoradas</h2>
   <div class="swiper topSwiper">
     <div class="swiper-wrapper" id="top-rated-slides">
-      <!-- Las tarjetas se insertan desde JS -->
     </div>
     <div class="swiper-pagination"></div>
   </div>
 </section>
 
-    <!-- Add Movie Section -->
     <section class="mb-16">
       <h2 class="section-title text-3xl md:text-4xl mb-10">Añadir Película</h2>
       <div class="bg-gray-900 p-8 rounded-3xl shadow-lg border border-gray-800 max-w-4xl mx-auto">
@@ -103,7 +99,6 @@
       </div>
     </section>
 
-    <!-- Filter Options -->
     <section class="mb-12">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
         <button onclick="toggleMyMovies()" class="access-btn rounded-2xl p-5 flex items-center justify-center bg-gray-900 border border-gray-800 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-gray-800/50">
@@ -136,26 +131,21 @@
       </div>
     </section>
 
-    <!-- Content Sections -->
-    <!-- My Movies Section -->
     <section id="my-movies-section" class="mb-16 hidden">
       <h2 class="section-title text-2xl md:text-3xl mb-10">Mis Películas</h2>
       <div id="my-movies" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
     </section>
 
-    <!-- Favorites Section - Hidden by default -->
     <section id="favorites-section" class="mb-16 hidden">
       <h2 class="section-title text-2xl md:text-3xl mb-10">Mis Películas Favoritas</h2>
       <div id="favorites-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
     </section>
 
-    <!-- Other Movies Section -->
     <section id="other-movies-section" class="mb-16 hidden">
       <h2 class="section-title text-2xl md:text-3xl mb-10">Películas de Otros Usuarios</h2>
       <div id="other-movies" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
     </section>
 
-    <!-- Recommendation Section -->
     <section id="recommendation-section" class="mb-16 hidden">
       <h2 class="section-title text-2xl md:text-3xl mb-10">Encuentra tu Próxima Película</h2>
       
@@ -203,7 +193,6 @@
     </section>
   </main>
 
-  <!-- Footer -->
   <footer class="bg-black py-10 border-t border-gray-800">
     <div class="container mx-auto px-6">
       <div class="flex flex-col md:flex-row justify-between items-center">
@@ -231,16 +220,13 @@
     </div>
   </footer>
 
-<!-- Modal de comentarios -->
 <div id="comment-modal" class="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm hidden z-50 flex items-center justify-center">
   <div class="bg-neutral-900 rounded-lg w-full max-w-md p-4 relative shadow-lg text-white">
     <button id="close-modal" class="absolute top-2 right-3 text-gray-400 hover:text-white text-lg">&times;</button>
     <h2 class="text-xl font-semibold mb-4 text-red-400">Comentarios</h2>
 
-    <!-- Contenedor donde cargamos los comentarios -->
     <div id="modal-comments-container" class="space-y-2 max-h-64 overflow-y-auto pr-2 mb-4"></div>
 
-    <!-- Formulario para añadir un nuevo comentario -->
     <div id="comment-form" class="flex flex-col space-y-2">
       <textarea id="new-comment" rows="2" class="w-full p-2 rounded bg-gray-800 text-white text-sm" placeholder="Escribe tu comentario..."></textarea>
       <button id="send-comment" class="bg-red-600 hover:bg-red-700 rounded px-4 py-2 text-sm font-semibold">Publicar comentario</button>
@@ -250,11 +236,7 @@
 
 
 <div id="toast-container" class="fixed bottom-5 right-5 z-50 space-y-2"></div>
-  <!-- Toast Notifications
-  <button onclick="syncInitialRatingsAll()" class="fixed bottom-5 left-5 bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded z-50">
-    Sincronizar Ratings
-  </button> -->
-  <!-- Scripts -->
+
   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
