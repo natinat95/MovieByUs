@@ -10,7 +10,6 @@ window.syncInitialRatings = function (uid) {
       const rating = parseFloat(movie.rating);
 
       if (!isNaN(rating)) {
-        // Se guarda como voto inicial bajo el usuario "sistema"
         db.ref(`/ratings/${key}/sistema`).set(rating);
       }
     });
@@ -82,8 +81,6 @@ function renderMovieCard(m, key = "", isMine = false, isTopRated = false, hideRa
   const movieId = m.key || key || btoa((m.title + "-" + m.duration).toLowerCase());
 
   const cardClass = isTopRated ? "card-top-rated" : "";
-  console.log("🟢 movieId renderizado:", m.key);
-
   return `
       <div class="bg-neutral-900 border border-neutral-700 rounded-lg overflow-hidden shadow-md transition hover:scale-105 relative ${cardClass}">
       <img src="${img}" alt="${m.title}" onerror="this.onerror=null;this.src='img/fondo.jpg';" class="w-full h-48 object-cover">
@@ -113,15 +110,7 @@ ${!hideRating ? `<p class="text-sm text-gray-300">⭐ Puntuación: <span id="rat
     Ver comentarios
   </button>
 ` : ""}
-
-
-
-
-
       </div>
-
-      
-
     `;
 }
 
@@ -138,7 +127,6 @@ function activarSistemaDePuntuacion() {
     const movieId = starGroup.getAttribute("data-id");
     const uid = firebase.auth().currentUser?.uid;
 
-    // Cargar media actual
     getAverageRating(movieId, avg => {
       const el = document.getElementById(`rating-${movieId}`);
       if (el) el.textContent = avg || "0.0";
@@ -205,9 +193,7 @@ function loadTopRatedMovies() {
       }
     });
 
-    // Añadir los originales
     slides.forEach(slide => topRatedContainer.appendChild(slide));
-    // Añadir duplicados para que el loop funcione sin pausa
     slides.forEach(slide => topRatedContainer.appendChild(slide.cloneNode(true)));
 
       activarSistemaDePuntuacion();
@@ -233,7 +219,6 @@ function loadTopRatedMovies() {
     });
   });
 }
-// Llama a la función al cargar
 loadTopRatedMovies();
 
 function loadFavorites(uid) {
@@ -267,13 +252,11 @@ window.showCommentsModal = function (movieId) {
   container.innerHTML = "<p class='text-gray-400 italic'>Cargando comentarios...</p>";
   modal.classList.remove("hidden");
 
-  // Eliminar listener anterior si existe
   if (commentsListener) {
     firebase.database().ref(`/comments/${commentsListener}`).off("value");
   }
   commentsListener = movieId;
 
-  // Escuchar en tiempo real los comentarios
   firebase.database().ref(`/comments/${movieId}`).on("value", snapshot => {
     container.innerHTML = "";
 
@@ -289,10 +272,8 @@ window.showCommentsModal = function (movieId) {
     });
 
 
-    // Ordenar de más reciente a más antiguo
     comments.sort((a, b) => b.timestamp - a.timestamp);
 
-    // Obtener todos los nombres de usuario
     const userIds = [...new Set(comments.map(c => c.uid))];
     const userPromises = userIds.map(uid =>
       firebase.database().ref(`/users/${uid}/username`).once("value")
@@ -332,7 +313,6 @@ window.showCommentsModal = function (movieId) {
 
 
 
-// Funciones de ventana
 window.toggleFavorites = function () {
   fadeOut("my-movies-section");
   fadeOut("other-movies-section");
@@ -365,7 +345,7 @@ window.loadMyMovies = function (uid) {
     snapshot.forEach(child => {
       const m = child.val();
       const key = child.key;
-      contenedor.innerHTML += renderMovieCard(m, key, true); // isMine = true
+      contenedor.innerHTML += renderMovieCard(m, key, true); 
       calculateAverageRating(key);
     });
     activarSistemaDePuntuacion();
@@ -421,11 +401,9 @@ window.generateRecommendation = async function (event) {
   result.innerHTML = "<p class='text-center text-gray-400'>Buscando películas...</p>";
 
   try {
-    // ✅ Cargar todos los ratings desde Firebase
     const ratingsSnap = await firebase.database().ref("/ratings").once("value");
     const ratingsData = ratingsSnap.val() || {};
 
-    // ✅ Cargar todas las películas
     const moviesSnap = await firebase.database().ref("/movies").once("value");
     let matches = [];
 
@@ -438,7 +416,6 @@ window.generateRecommendation = async function (event) {
           const movieDuration = parseInt(movie.duration);
           const movieGenre = movie.genre?.toLowerCase();
 
-          // ✅ Media desde ratings reales en Firebase
           const ratingValues = ratingsData[key] ? Object.values(ratingsData[key]) : [];
           const avgRating = ratingValues.length > 0
             ? ratingValues.reduce((a, b) => a + b, 0) / ratingValues.length
@@ -456,23 +433,19 @@ window.generateRecommendation = async function (event) {
       }
     });
 
-    // ✅ Mostrar resultados
     if (matches.length === 0) {
       result.innerHTML = '<div class="text-center text-gray-400 col-span-full">No se encontraron películas que coincidan con los filtros.</div>';
     } else {
       result.innerHTML = "";
 
       matches.forEach(movie => {
-        // Aseguramos que movie.key esté definido
         const movieId = movie.key;
         result.innerHTML += renderMovieCard(movie, movie.key, false, false, false, movie.avgRating);
       });
 
-      // ✅ Después de renderizar, actualizar cada puntuación individualmente
       matches.forEach(movie => {
         const movieId = movie.key;
 
-        // Calcular y mostrar la puntuación directamente, sin esperar
         getAverageRating(movieId, avg => {
           const ratingElement = document.getElementById(`rating-${movieId}`);
           if (ratingElement) {
@@ -481,7 +454,6 @@ window.generateRecommendation = async function (event) {
         });
       });
 
-      // Activar sistema de puntuación después de renderizar
       activarSistemaDePuntuacion();
     }
   } catch (error) {
@@ -507,7 +479,7 @@ window.toggleFavorite = function (peliculaEncoded, movieId) {
           showToast("Película eliminada de favoritos");
           const favSection = document.getElementById("favorites-section");
           if (!favSection.classList.contains("hidden")) {
-            loadFavorites(uid); // 🔄 recargar si estamos viendo favoritos
+            loadFavorites(uid); 
           }
         });
     } else {
@@ -516,51 +488,67 @@ window.toggleFavorite = function (peliculaEncoded, movieId) {
           showToast("Película añadida a favoritos");
           const favSection = document.getElementById("favorites-section");
           if (!favSection.classList.contains("hidden")) {
-            loadFavorites(uid); // también se puede actualizar tras añadir si quieres
+            loadFavorites(uid); 
           }
         });
     }
   }).catch(err => showToast("Error: " + err.message, "error"));
 };
 
-window.addMovie = function () {
-  const title = document.getElementById("title").value.trim();
+window.addMovie = async function () {
+  const normalize = str => str.trim().toLowerCase().replace(/\s+/g, " ");
+  const titleInput = document.getElementById("title").value;
+  const titleNorm = normalize(titleInput);
   const genre = document.getElementById("genre").value.trim();
   const rating = parseFloat(document.getElementById("rating").value);
   const duration = parseInt(document.getElementById("duration").value);
   const image = document.getElementById("image").value.trim();
   const user = firebase.auth().currentUser;
+  const userUid = user.uid;
 
-  if (!user) return showToast("No has iniciado sesión", "error");
-  if (!title || !genre || isNaN(rating) || isNaN(duration)) {
+  if (!titleInput || !genre || isNaN(rating) || isNaN(duration)) {
     return showToast("Rellena todos los campos obligatorios", "error");
   }
+
   if (rating < 1 || rating > 5) {
     return showToast("La puntuación debe estar entre 1 y 5", "error");
   }
 
-  const movie = { title, genre, rating, duration };
-  if (image) movie.image = image;
+  const movieRef = firebase.database().ref(`/movies/${userUid}`);
+  try {
+    const snapshot = await movieRef.once("value");
+    let duplicated = false;
 
-  const userUid = user.uid;
-  const movieRef = firebase.database().ref(`/movies/${userUid}`).push();
-
-  movieRef.set(movie)
-    .then(() => {
-      // ✅ Guardar la puntuación como voto inicial
-      const movieId = movieRef.key;
-      return firebase.database().ref(`/ratings/${movieId}/${userUid}`).set(rating);
-    })
-    .then(() => {
-      showToast("Película guardada correctamente");
-      clearForm();
-      window.loadMyMovies(userUid);
-    })
-    .catch(error => {
-      console.error(error);
-      showToast("Error al guardar: " + error.message, "error");
+    snapshot.forEach(child => {
+      const m = child.val();
+      if (
+        normalize(m.title) === titleNorm &&
+        m.genre === genre
+      ) {
+        duplicated = true;
+      }
     });
+
+    if (duplicated) {
+      return showToast("Ya tienes una película con ese título y género", "error");
+    }
+
+    const newMovie = { title: titleInput.trim(), genre, rating, duration };
+    if (image) newMovie.image = image;
+
+    const newRef = movieRef.push();
+    await newRef.set(newMovie);
+    await firebase.database().ref(`/ratings/${newRef.key}/${userUid}`).set(rating);
+
+    showToast("Película añadida correctamente");
+    clearForm();
+    window.loadMyMovies(userUid);
+  } catch (error) {
+    console.error(error);
+    showToast("Error al guardar la película", "error");
+  }
 };
+
 
 
 window.deleteMovie = function (movieId) {
@@ -571,7 +559,6 @@ window.deleteMovie = function (movieId) {
     .then(() => {
       showToast("Película eliminada");
 
-      // Si está visible la sección de mis películas, la recargamos
       const section = document.getElementById("my-movies-section");
       if (!section.classList.contains("hidden")) {
         loadMyMovies(uid);
@@ -596,7 +583,6 @@ window.deleteComment = function (movieId, commentId) {
 };
 
 
-// Inicialización cuando se carga el DOM
 window.addEventListener("DOMContentLoaded", () => {
   const auth = firebase.auth();
   const db = firebase.database();
@@ -618,7 +604,6 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Añadir eventos de estrellas a nivel global
   document.addEventListener("click", function (e) {
     if (e.target.closest(".stars i")) {
       const star = e.target;
@@ -634,7 +619,6 @@ window.addEventListener("DOMContentLoaded", () => {
           showToast("¡Gracias por votar!");
           calculateAverageRating(movieId);
 
-          // ✅ Actualiza también la puntuación en recomendaciones
           const ratingSpan = document.getElementById(`rating-${movieId}`);
           if (ratingSpan) {
             getAverageRating(movieId, avg => {
@@ -679,8 +663,7 @@ window.addEventListener("DOMContentLoaded", () => {
     firebase.database().ref(`/comments/${currentMovieId}`).push(newComment)
       .then(() => {
         showToast("Comentario publicado");
-        input.value = ""; // ✅ limpiar campo
-        // ❌ NO volver a llamar a showCommentsModal
+        input.value = ""; 
       })
       .catch((error) => {
         console.error(error);
@@ -693,7 +676,6 @@ window.addEventListener("DOMContentLoaded", () => {
   document.getElementById("close-modal").addEventListener("click", () => {
     document.getElementById("comment-modal").classList.add("hidden");
 
-    // 🔇 Detener la escucha cuando se cierra
     if (commentsListener) {
       firebase.database().ref(`/comments/${commentsListener}`).off("value");
       commentsListener = null;
@@ -728,7 +710,7 @@ window.postComment = function (movieId) {
     .then(() => {
       showToast("Comentario publicado");
       input.value = "";
-      loadComments(movieId); // 🔄 Recargar comentarios después de comentar
+      loadComments(movieId); 
     })
     .catch((error) => {
       console.error(error);
