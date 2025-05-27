@@ -1,26 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
-    
+
 body {
   font-family: 'Montserrat', sans-serif;
   background-color: #0a0a0a;
   scroll-behavior: smooth;
 }
 
-/* Preloader */
 #preloader {
   transition: opacity 0.3s ease;
 }
 
-/* Text shadow utilities */
-.text-shadow {
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-}
-
-.text-shadow-sm {
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-/* Swiper styling */
 .swiper {
   width: 100%;
   height: 85vh;
@@ -39,7 +28,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.3) 100%);
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0.3) 100%);
 }
 
 .slide-content {
@@ -105,7 +94,6 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
-/* Form container styling */
 .form-container {
   background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(15, 15, 15, 0.95) 100%);
   backdrop-filter: blur(10px);
@@ -121,33 +109,6 @@ body {
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
 }
 
-/* Tab styling */
-.tab-active {
-  background: linear-gradient(to right, #e53e3e, #d61c1c);
-  color: white;
-  box-shadow: 0 5px 15px rgba(229, 62, 62, 0.35);
-}
-
-#login-tab, #register-tab {
-  transition: all 0.3s ease;
-}
-
-#login-tab:hover, #register-tab:hover {
-  background-color: rgba(229, 62, 62, 0.1);
-  color: rgba(255, 255, 255, 0.9);
-}
-
-/* Form content animations */
-#login-content, #register-content {
-  opacity: 1;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-#login-content.hidden, #register-content.hidden {
-  display: none;
-}
-
-/* Form input styling */
 .input-field {
   transition: all 0.3s ease;
   border: 1px solid rgba(107, 114, 128, 0.3);
@@ -158,7 +119,6 @@ body {
   box-shadow: 0 0 0 2px rgba(229, 62, 62, 0.2);
 }
 
-/* Button icon animation */
 .animated-icon {
   transition: all 0.3s ease;
 }
@@ -167,7 +127,6 @@ button:hover .animated-icon {
   transform: translateX(5px);
 }
 
-/* Swiper pagination customization */
 .swiper-pagination-bullet {
   width: 12px;
   height: 12px;
@@ -193,28 +152,6 @@ button:hover .animated-icon {
   color: #e53e3e;
 }
 
-/* Slide content animations */
-.slide-title {
-  transform: translateY(20px);
-  opacity: 0;
-  transition: all 0.8s ease;
-  transition-delay: 0.3s;
-}
-
-.slide-desc {
-  transform: translateY(20px);
-  opacity: 0;
-  transition: all 0.8s ease;
-  transition-delay: 0.5s;
-}
-
-.slide-btn {
-  transform: translateY(20px);
-  opacity: 0;
-  transition: all 0.8s ease;
-  transition-delay: 0.7s;
-}
-
 .swiper-slide-active .slide-title,
 .swiper-slide-active .slide-desc,
 .swiper-slide-active .slide-btn {
@@ -222,49 +159,32 @@ button:hover .animated-icon {
   opacity: 1;
 }
 
-/* Main content styling */
 .main-content {
   position: relative;
   z-index: 10;
-  margin-top: 0; /* Cambiado de 1rem a 0 */
-  padding-top: 0; /* Cambiado de 1rem a 0 */
-  padding-bottom: 0; /* Cambiado de 1rem a 0 */
+  margin-top: 0;
+  padding-top: 0;
+  padding-bottom: 0;
   background-color: #0a0a0a;
 }
 
-.access-section {
-  position: relative;
+.tab-active {
+  background: linear-gradient(to right, #e53e3e, #d61c1c);
+  color: white;
+  box-shadow: 0 5px 15px rgba(229, 62, 62, 0.35);
 }
 
-.access-section::before {
-  content: '';
-  position: absolute;
-  top: -100px;
-  left: 0;
-  right: 0;
-  height: 150px;
-  background: linear-gradient(to bottom, transparent 0%, #0a0a0a 100%);
-  z-index: 5;
+#login-tab,
+#register-tab {
+  transition: all 0.3s ease;
 }
 
-/* 3D card effect */
-.perspective {
-  perspective: 1000px;
+#login-tab:hover,
+#register-tab:hover {
+  background-color: rgba(229, 62, 62, 0.1);
+  color: rgba(255, 255, 255, 0.9);
 }
 
-#card {
-  transform-style: preserve-3d;
-}
-
-.backface-hidden {
-  backface-visibility: hidden;
-}
-
-.rotate-y-180 {
-  transform: rotateY(180deg);
-}
-
-/* Toast notifications */
 .toast {
   animation: toast-in 0.3s ease forwards;
 }
@@ -278,6 +198,7 @@ button:hover .animated-icon {
     transform: translateX(100%);
     opacity: 0;
   }
+
   to {
     transform: translateX(0);
     opacity: 1;
@@ -289,48 +210,35 @@ button:hover .animated-icon {
     transform: translateX(0);
     opacity: 1;
   }
+
   to {
     transform: translateX(100%);
     opacity: 0;
   }
 }
 
-/* Mobile menu animation */
-#mobile-menu {
-  transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-}
 
-/* Feature card hover effect */
-.features .bg-gradient-to-br {
-  transition: all 0.3s ease;
-}
-
-.features .bg-gradient-to-br:hover {
-  background: linear-gradient(135deg, rgba(229, 62, 62, 0.1) 0%, rgba(20, 20, 20, 0.8) 100%);
-  border-color: rgba(229, 62, 62, 0.3);
-}
-
-/* Scroll to top button */
 #scroll-to-top {
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .swiper {
     height: 75vh;
   }
-  
+
   .slide-content {
     padding-bottom: 3rem;
   }
 }
 
-/* Loading skeleton animation */
 @keyframes pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.6;
   }
+
   50% {
     opacity: 0.3;
   }
