@@ -1,6 +1,5 @@
 
 
-// ✅ Mostrar mensajes flotantes
 function showToast(message, type) {
   const container = document.getElementById("toast-container");
   if (!container) return;
@@ -23,7 +22,6 @@ function showToast(message, type) {
   }, 3000);
 }
 
-// ✅ Configurar Swiper del slider
 var swiper = new Swiper(".mySwiper", {
   effect: "fade",
   speed: 1000,
@@ -37,7 +35,6 @@ var swiper = new Swiper(".mySwiper", {
   }
 });
 
-// ✅ Efecto scroll para header
 window.addEventListener('scroll', function () {
   const logoContainer = document.getElementById('logoContainer');
   if (window.scrollY > 50) {
@@ -47,7 +44,6 @@ window.addEventListener('scroll', function () {
   }
 });
 
-// ✅ Al cargar la página
 document.addEventListener('DOMContentLoaded', function () {
   const loginTab = document.getElementById('login-tab');
   const registerTab = document.getElementById('register-tab');
@@ -76,9 +72,8 @@ document.addEventListener('DOMContentLoaded', function () {
   loginTab.addEventListener('click', showLogin);
   registerTab.addEventListener('click', showRegister);
 
-  showLogin(); // mostrar login al cargar
+  showLogin(); 
 
-  // Animación del logo al cargar
   const logoContent = document.querySelector('.logo-content');
   if (logoContent) {
     logoContent.style.opacity = '0';
@@ -93,13 +88,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-// ✅ Función global para REGISTRAR usuario
 document.addEventListener('DOMContentLoaded', function () {
   const registerButton = document.getElementById('register-button');
 
   if (registerButton) {
     registerButton.addEventListener('click', function (e) {
-      e.preventDefault(); // Previene comportamiento por defecto
+      e.preventDefault(); 
       const username = document.getElementById("register-username").value.trim();
       const email = document.getElementById("register-email").value.trim();
       const password = document.getElementById("register-password").value.trim();
@@ -137,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(() => {
           showToast("Cuenta creada con éxito. Ahora inicia sesión.");
-          showLogin(); // Redirige a iniciar sesión
+          showLogin(); 
         })
         .catch((error) => {
           console.error(error);
@@ -148,7 +142,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-// ✅ Función global para mostrar/ocultar contraseña
 window.togglePassword = function (inputId, icon) {
   const input = document.getElementById(inputId);
   if (input.type === "password") {
@@ -162,7 +155,6 @@ window.togglePassword = function (inputId, icon) {
   }
 };
 
-// ✅ Función global para RESET de contraseña
 window.resetPassword = function () {
   const email = document.getElementById("login-email").value.trim();
 
@@ -212,11 +204,9 @@ function loadRandomTestimonials() {
       });
     });
 
-    // Mezclar y seleccionar 3 comentarios aleatorios
     const shuffled = allComments.sort(() => 0.5 - Math.random()).slice(0, 3);
     const userIds = [...new Set(shuffled.map(c => c.uid))];
 
-    // Obtener nombres de usuario
     const userPromises = userIds.map(uid =>
       db.ref(`/users/${uid}/username`).once("value").then(snap => ({ uid, username: snap.val() || "Anónimo" }))
     );
@@ -225,7 +215,7 @@ function loadRandomTestimonials() {
       const userMap = {};
       users.forEach(({ uid, username }) => userMap[uid] = username);
 
-      container.innerHTML = ""; // Limpiar contenedor
+      container.innerHTML = ""; 
       shuffled.forEach(comment => {
         const username = userMap[comment.uid] || "Anónimo";
         const initial = username.charAt(0).toUpperCase();
@@ -260,7 +250,6 @@ function loadRandomTestimonials() {
 }
 
 
-// ✅ Mostrar y ocultar preloader al cargar
 window.addEventListener('load', function () {
   const preloader = document.getElementById('preloader');
   setTimeout(() => {
@@ -271,7 +260,6 @@ window.addEventListener('load', function () {
   }, 500);
 });
 
-// ✅ Botón de scroll to top
 document.addEventListener('DOMContentLoaded', function () {
   const scrollToTopButton = document.getElementById('scroll-to-top');
 
@@ -295,7 +283,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-//  Overlay y banner de cookies
 document.addEventListener('DOMContentLoaded', function () {
   const banner = document.getElementById('cookie-banner');
   const overlay = document.getElementById('cookie-overlay');
