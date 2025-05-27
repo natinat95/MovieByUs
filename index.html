@@ -24,7 +24,6 @@
     </div>
   </div>
 
-  <!-- Header con Swiper slider -->
   <header class="w-full relative">
     <div class="swiper mySwiper">
       <div class="swiper-wrapper">
@@ -78,7 +77,6 @@
       <div class="swiper-pagination"></div>
     </div>
 
-    <!-- Logo mejorado -->
     <div class="logo-container" id="logoContainer">
       <div class="container mx-auto px-6 flex justify-between items-center">
         <div class="logo-content flex items-center">
@@ -99,9 +97,7 @@
 
   </header>
 
-  <!-- Contenedor principal -->
   <div class="main-content">
-    <!-- Sección CTA -->
     <section class="py-16 bg-gradient-to-b from-gray-900 to-black relative overflow-hidden">
       <div
         class="absolute -top-1/2 -right-1/4 w-3/4 h-full rounded-full bg-gradient-to-br from-red-700/10 to-red-900/5 blur-3xl">
@@ -116,12 +112,10 @@
       </div>
     </section>
 
-    <!-- Sección de formulario mejorada -->
     <section class="form-section container mx-auto px-6 py-16 -mt-6">
       <div class="form-container mx-auto p-8 md:p-10 rounded-3xl w-full max-w-md perspective" id="auth-form">
         <div id="card"
           class="relative w-full transition-transform duration-700 transform-style-preserve-3d backface-hidden">
-          <!-- Selector de formulario -->
           <div class="flex mb-8 bg-gray-800/30 p-1 rounded-xl">
             <button id="login-tab" class="flex-1 py-3 px-4 rounded-lg text-center font-semibold tab-active">
               Iniciar sesión
@@ -131,7 +125,6 @@
             </button>
           </div>
 
-          <!-- Formulario de Inicio de Sesión -->
           <div id="login-content">
             <h2 class="text-3xl font-bold text-center mb-8">Bienvenido de nuevo</h2>
             <div class="space-y-6">
@@ -172,7 +165,6 @@
 
           </div>
 
-          <!-- Formulario de Registro -->
           <div id="register-content" class="hidden">
             <h2 class="text-3xl font-bold text-center mb-8">Crear cuenta</h2>
             <div class="space-y-6">
@@ -237,14 +229,12 @@
           </div>
     </section>
 
-    <!-- Seccion testimonios reales -->
     <section class="testimonials py-16 bg-gradient-to-b from-black to-gray-900">
       <div class="container mx-auto px-6">
         <h2 class="text-3xl md:text-4xl font-bold mb-16 text-center">
           Lo que dicen nuestros <span class="text-red-500">usuarios</span>
         </h2>
         <div id="dynamic-testimonials" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Aquí se cargarán los comentarios reales -->
         </div>
       </div>
     </section>
@@ -278,33 +268,25 @@
     </div>
   </footer>
 
-  <!-- Botón de scroll to top -->
   <button id="scroll-to-top"
     class="fixed bottom-6 right-6 bg-red-600 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg shadow-red-600/30 cursor-pointer transform transition-all duration-300 scale-0 hover:scale-110 z-50">
     <i class="fas fa-chevron-up"></i>
   </button>
 
-  <!-- Toast container -->
   <div id="toast-container" class="fixed bottom-5 right-5 z-50 space-y-2"></div>
 
-  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
   <script src="index.js"></script>
 
-  <!-- Firebase App (core) -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <!-- Firebase Authentication -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-  <!-- Firebase Realtime Database -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
   <script src="firebase-config.js"></script>
   <script src="app.js"></script>
-  <!-- Overlay oscuro de fondo -->
   <div id="cookie-overlay"
     class="fixed inset-0 bg-black bg-opacity-80 z-40 opacity-0 pointer-events-none transition-opacity duration-500">
   </div>
 
-  <!-- Banner de cookies centrado con fondo negro -->
   <div id="cookie-banner"
     class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/90 backdrop-blur-md text-white p-8 rounded-2xl shadow-2xl border border-red-600 max-w-lg w-[90%] z-50 opacity-0 pointer-events-none transition-all duration-500 scale-95">
     <div class="space-y-5 text-center">
