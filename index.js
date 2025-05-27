@@ -133,10 +133,15 @@ document.addEventListener('DOMContentLoaded', function () {
           showToast("Cuenta creada con éxito. Ahora inicia sesión.");
           showLogin(); 
         })
-        .catch((error) => {
-          console.error(error);
+         .catch((error) => {
+        console.error(error);
+        if (error.code === "auth/email-already-in-use") {
+          showToast("Ese correo ya está registrado. Intenta iniciar sesión o usa otro.", "error");
+        } else {
           showToast("Error al registrar: " + error.message, "error");
-        });
+        }
+      });
+
     });
   }
 });
