@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Home - MovieByUs</title>
+  <title>MovieByUs</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
   <link rel="stylesheet" href="home.css">
   <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
@@ -14,7 +16,6 @@
 </head>
 
 <body class="min-h-screen flex flex-col">
-  <!-- Header -->
   <header class="w-full py-6 bg-black shadow-lg">
     <div class="container mx-auto px-6 flex justify-between items-center">
       <div class="flex items-center">
@@ -28,7 +29,8 @@
           Movie<span class="logo-highlight">ByUs</span>
         </h1>
       </div>
-      <button id="logoutBtn" class="flex items-center space-x-2 bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-all duration-300 hover:shadow-lg">
+      <button id="logoutBtn"
+        class="flex items-center space-x-2 bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-all duration-300 hover:shadow-lg">
         <span class="hidden md:inline font-medium">Cerrar sesión</span>
         <i class="fas fa-sign-out-alt"></i>
       </button>
@@ -37,14 +39,14 @@
 
   <main class="container mx-auto px-6 py-10 flex-grow">
 
-<section id="top-rated-slider" class="mb-16">
-  <h2 class="section-title text-3xl md:text-4xl mb-10">Mejor Valoradas</h2>
-  <div class="swiper topSwiper">
-    <div class="swiper-wrapper" id="top-rated-slides">
-    </div>
-    <div class="swiper-pagination"></div>
-  </div>
-</section>
+    <section id="top-rated-slider" class="mb-16">
+      <h2 class="section-title text-3xl md:text-4xl mb-10">Mejor Valoradas</h2>
+      <div class="swiper topSwiper">
+        <div class="swiper-wrapper" id="top-rated-slides">
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </section>
 
     <section class="mb-16">
       <h2 class="section-title text-3xl md:text-4xl mb-10">Añadir Película</h2>
@@ -52,10 +54,10 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <div>
             <label for="title" class="block text-sm font-medium text-gray-300 mb-2">Título</label>
-            <input id="title" type="text" placeholder="Nombre de la película" 
+            <input id="title" type="text" placeholder="Nombre de la película"
               class="input-field w-full p-4 rounded-xl bg-gray-800/50 text-white focus:outline-none" />
           </div>
-          
+
           <div>
             <label for="genre" class="block text-sm font-medium text-gray-300 mb-2">Género</label>
             <select id="genre" class="input-field w-full p-4 rounded-xl bg-gray-800/50 text-white focus:outline-none">
@@ -68,31 +70,33 @@
               <option value="Romántica">Romántica</option>
             </select>
           </div>
-          
+
           <div>
             <label for="rating" class="block text-sm font-medium text-gray-300 mb-2">Puntuación (1-5)</label>
-            <input id="rating" type="number" min="1" max="5" step="0.1" placeholder="4.5" 
-              class="input-field w-full p-4 rounded-xl bg-gray-800/50 text-white focus:outline-none" />            
-          </div>
-          
-          <div>
-            <label for="duration" class="block text-sm font-medium text-gray-300 mb-2">Duración (minutos)</label>
-            <input id="duration" type="number" placeholder="120" 
+            <input id="rating" type="number" min="1" max="5" step="0.1" placeholder="4.5"
               class="input-field w-full p-4 rounded-xl bg-gray-800/50 text-white focus:outline-none" />
           </div>
-          
+
+          <div>
+            <label for="duration" class="block text-sm font-medium text-gray-300 mb-2">Duración (minutos)</label>
+            <input id="duration" type="number" placeholder="120"
+              class="input-field w-full p-4 rounded-xl bg-gray-800/50 text-white focus:outline-none" />
+          </div>
+
           <div class="md:col-span-2">
             <label for="image" class="block text-sm font-medium text-gray-300 mb-2">URL de imagen</label>
-            <input id="image" type="url" placeholder="https://ejemplo.com/imagen.jpg" 
+            <input id="image" type="url" placeholder="https://ejemplo.com/imagen.jpg"
               class="input-field w-full p-4 rounded-xl bg-gray-800/50 text-white focus:outline-none" />
           </div>
         </div>
-        
+
         <div class="flex gap-4 pt-4">
-          <button onclick="addMovie()" class="flex-1 btn-primary text-white font-bold py-4 rounded-xl flex items-center justify-center">
+          <button onclick="addMovie()"
+            class="flex-1 btn-primary text-white font-bold py-4 rounded-xl flex items-center justify-center">
             <i class="fas fa-plus mr-2"></i>Guardar película
           </button>
-          <button onclick="clearForm()" class="flex-1 bg-gray-800 hover:bg-gray-700 text-white font-bold py-4 rounded-xl transition-all duration-300">
+          <button onclick="clearForm()"
+            class="flex-1 bg-gray-800 hover:bg-gray-700 text-white font-bold py-4 rounded-xl transition-all duration-300">
             <i class="fas fa-redo mr-2"></i>Limpiar
           </button>
         </div>
@@ -101,28 +105,32 @@
 
     <section class="mb-12">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
-        <button onclick="toggleMyMovies()" class="access-btn rounded-2xl p-5 flex items-center justify-center bg-gray-900 border border-gray-800 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-gray-800/50">
+        <button onclick="toggleMyMovies()"
+          class="access-btn rounded-2xl p-5 flex items-center justify-center bg-gray-900 border border-gray-800 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-gray-800/50">
           <div class="animated-icon bg-gradient-to-br from-red-600 to-red-800 p-3 rounded-full mr-3">
             <i class="fas fa-film text-xl text-white"></i>
           </div>
           <span class="text-lg font-bold">Mis Películas</span>
         </button>
-        
-        <button onclick="toggleFavorites()" class="access-btn rounded-2xl p-5 flex items-center justify-center bg-gray-900 border border-gray-800 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-yellow-600/30">
+
+        <button onclick="toggleFavorites()"
+          class="access-btn rounded-2xl p-5 flex items-center justify-center bg-gray-900 border border-gray-800 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-yellow-600/30">
           <div class="animated-icon bg-gradient-to-br from-yellow-500 to-yellow-700 p-3 rounded-full mr-3">
             <i class="fas fa-star text-xl text-white"></i>
           </div>
           <span class="text-lg font-bold">Favoritas</span>
         </button>
-        
-        <button onclick="toggleOtherMovies()" class="access-btn rounded-2xl p-5 flex items-center justify-center bg-gray-900 border border-gray-800 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-gray-800/50">
+
+        <button onclick="toggleOtherMovies()"
+          class="access-btn rounded-2xl p-5 flex items-center justify-center bg-gray-900 border border-gray-800 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-gray-800/50">
           <div class="animated-icon bg-gradient-to-br from-red-600 to-red-800 p-3 rounded-full mr-3">
             <i class="fas fa-users text-xl text-white"></i>
           </div>
           <span class="text-lg font-bold">Otros Usuarios</span>
         </button>
-        
-        <button onclick="toggleRecommendation()" class="access-btn rounded-2xl p-5 flex items-center justify-center bg-gray-900 border border-gray-800 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-red-600/30">
+
+        <button onclick="toggleRecommendation()"
+          class="access-btn rounded-2xl p-5 flex items-center justify-center bg-gray-900 border border-gray-800 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-red-600/30">
           <div class="animated-icon bg-gradient-to-br from-red-600 to-red-800 p-3 rounded-full mr-3">
             <i class="fas fa-magic text-xl text-white"></i>
           </div>
@@ -130,6 +138,7 @@
         </button>
       </div>
     </section>
+
 
     <section id="my-movies-section" class="mb-16 hidden">
       <h2 class="section-title text-2xl md:text-3xl mb-10">Mis Películas</h2>
@@ -148,18 +157,20 @@
 
     <section id="recommendation-section" class="mb-16 hidden">
       <h2 class="section-title text-2xl md:text-3xl mb-10">Encuentra tu Próxima Película</h2>
-      
-      <form onsubmit="generateRecommendation(event)" class="bg-gray-900 p-8 rounded-3xl shadow-lg border border-gray-800 max-w-3xl mx-auto mb-10">
+
+      <form onsubmit="generateRecommendation(event)"
+        class="bg-gray-900 p-8 rounded-3xl shadow-lg border border-gray-800 max-w-3xl mx-auto mb-10">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
           <div class="md:col-span-3">
             <label for="filter-title" class="block text-sm font-medium text-gray-300 mb-2">Título de la Película</label>
-            <input id="filter-title" type="text" placeholder="Busca por título..." 
+            <input id="filter-title" type="text" placeholder="Busca por título..."
               class="input-field w-full p-4 rounded-xl bg-gray-800/50 text-white focus:outline-none" />
           </div>
-          
+
           <div>
             <label for="filter-genre" class="block text-sm font-medium text-gray-300 mb-2">Género</label>
-            <select id="filter-genre" class="input-field w-full p-4 rounded-xl bg-gray-800/50 text-white focus:outline-none">
+            <select id="filter-genre"
+              class="input-field w-full p-4 rounded-xl bg-gray-800/50 text-white focus:outline-none">
               <option value="">Género (opcional)</option>
               <option value="Acción">Acción</option>
               <option value="Comedia">Comedia</option>
@@ -169,26 +180,28 @@
               <option value="Romántica">Romántica</option>
             </select>
           </div>
-          
+
           <div>
-            <label for="filter-rating" class="block text-sm font-medium text-gray-300 mb-2">Puntuación mínima (1-5)</label>
-            <input id="filter-rating" type="number" min="1" max="5" step="0.1" placeholder="4.0" 
+            <label for="filter-rating" class="block text-sm font-medium text-gray-300 mb-2">Puntuación mínima
+              (1-5)</label>
+            <input id="filter-rating" type="number" min="1" max="5" step="0.1" placeholder="4.0"
               class="input-field w-full p-4 rounded-xl bg-gray-800/50 text-white focus:outline-none" />
           </div>
-                 
-          
+
+
           <div>
             <label for="filter-duration" class="block text-sm font-medium text-gray-300 mb-2">Duración máxima</label>
-            <input id="filter-duration" type="number" placeholder="150" 
+            <input id="filter-duration" type="number" placeholder="150"
               class="input-field w-full p-4 rounded-xl bg-gray-800/50 text-white focus:outline-none" />
           </div>
         </div>
-        
-        <button type="submit" class="w-full btn-primary text-white font-bold py-4 rounded-xl flex items-center justify-center">
+
+        <button type="submit"
+          class="w-full btn-primary text-white font-bold py-4 rounded-xl flex items-center justify-center">
           <i class="fas fa-search mr-2"></i>Buscar
         </button>
       </form>
-      
+
       <div id="recommendation-result" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
     </section>
   </main>
@@ -203,7 +216,7 @@
           </div>
           <p class="text-gray-500 mt-2 text-center md:text-left">Tu comunidad de cine favorita</p>
         </div>
-        
+
         <div class="flex space-x-4">
           <a href="#" class="text-gray-400 hover:text-red-500 transition-colors">
             <i class="fab fa-facebook-f text-xl"></i>
@@ -213,29 +226,32 @@
           </a>
         </div>
       </div>
-      
+
       <div class="mt-8 pt-8 border-t border-gray-800 text-center text-sm text-gray-500">
         <p>© 2025 MovieByUs - Todos los derechos reservados</p>
       </div>
     </div>
   </footer>
 
-<div id="comment-modal" class="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm hidden z-50 flex items-center justify-center">
-  <div class="bg-neutral-900 rounded-lg w-full max-w-md p-4 relative shadow-lg text-white">
-    <button id="close-modal" class="absolute top-2 right-3 text-gray-400 hover:text-white text-lg">&times;</button>
-    <h2 class="text-xl font-semibold mb-4 text-red-400">Comentarios</h2>
+  <div id="comment-modal"
+    class="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm hidden z-50 flex items-center justify-center">
+    <div class="bg-neutral-900 rounded-lg w-full max-w-md p-4 relative shadow-lg text-white">
+      <button id="close-modal" class="absolute top-2 right-3 text-gray-400 hover:text-white text-lg">&times;</button>
+      <h2 class="text-xl font-semibold mb-4 text-red-400">Comentarios</h2>
 
-    <div id="modal-comments-container" class="space-y-2 max-h-64 overflow-y-auto pr-2 mb-4"></div>
+      <div id="modal-comments-container" class="space-y-2 max-h-64 overflow-y-auto pr-2 mb-4"></div>
 
-    <div id="comment-form" class="flex flex-col space-y-2">
-      <textarea id="new-comment" rows="2" class="w-full p-2 rounded bg-gray-800 text-white text-sm" placeholder="Escribe tu comentario..."></textarea>
-      <button id="send-comment" class="bg-red-600 hover:bg-red-700 rounded px-4 py-2 text-sm font-semibold">Publicar comentario</button>
+      <div id="comment-form" class="flex flex-col space-y-2">
+        <textarea id="new-comment" rows="2" class="w-full p-2 rounded bg-gray-800 text-white text-sm"
+          placeholder="Escribe tu comentario..."></textarea>
+        <button id="send-comment" class="bg-red-600 hover:bg-red-700 rounded px-4 py-2 text-sm font-semibold">Publicar
+          comentario</button>
+      </div>
     </div>
   </div>
-</div>
 
 
-<div id="toast-container" class="fixed bottom-5 right-5 z-50 space-y-2"></div>
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 space-y-2"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
@@ -243,6 +259,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
   <script src="firebase-config.js"></script>
   <script src="home.js"></script>
-  
+
 </body>
+
 </html>
