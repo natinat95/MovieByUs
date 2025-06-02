@@ -1,4 +1,3 @@
-
 window.syncInitialRatings = function (uid) {
   const db = firebase.database();
   const moviesRef = db.ref(`/movies/${uid}`);
@@ -10,6 +9,7 @@ window.syncInitialRatings = function (uid) {
       const rating = parseFloat(movie.rating);
 
       if (!isNaN(rating)) {
+
         db.ref(`/ratings/${key}/sistema`).set(rating);
       }
     });
@@ -57,9 +57,35 @@ function getAverageRating(movieId, callback) {
 function calculateAverageRating(movieId) {
   getAverageRating(movieId, avg => {
     const span = document.getElementById(`rating-${movieId}`);
-    if (span) span.innerText = avg || "Sin votos";
-
+    if (!span) {
+      console.warn("No se encontró el elemento para la puntuación de", movieId);
+      return;
+    }
+    span.innerText = avg || "Sin votos";
   });
+}
+
+function renderMovieListOptimized(movies, containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) {
+    console.warn("Contenedor no encontrado:", containerId);
+    return;
+  }
+
+  const html = movies.map(movie => {
+    const movieId = movie.key || btoa((movie.title + "-" + movie.duration).toLowerCase());
+    return renderMovieCard(movie, movieId, false, false, false, movie.avgRating);
+  }).join("");
+
+  container.innerHTML = html;
+
+  setTimeout(() => {
+    movies.forEach(movie => {
+      calculateAverageRating(movie.key);
+    });
+  }, 50);
+
+  setTimeout(() => activarSistemaDePuntuacion(), 100);
 }
 
 function fadeIn(id) {
@@ -81,6 +107,7 @@ function renderMovieCard(m, key = "", isMine = false, isTopRated = false, hideRa
   const movieId = m.key || key || btoa((m.title + "-" + m.duration).toLowerCase());
 
   const cardClass = isTopRated ? "card-top-rated" : "";
+
   return `
       <div class="bg-neutral-900 border border-neutral-700 rounded-lg overflow-hidden shadow-md transition hover:scale-105 relative ${cardClass}">
       <img src="${img}" alt="${m.title}" onerror="this.onerror=null;this.src='img/fondo.jpg';" class="w-full h-48 object-cover">
@@ -105,12 +132,20 @@ ${!hideRating ? `<p class="text-sm text-gray-300">⭐ Puntuación: <span id="rat
   
           ${isMine ? `<button onclick="deleteMovie('${key}')" class="absolute top-2 left-2 text-sm bg-red-600 hover:bg-red-700 px-3 py-1 rounded">🗑️</button>` : ""}
         </div>
-      ${!isTopRated ? `
-  <button onclick="showCommentsModal('${movieId}')" class="mt-3 text-sm bg-red-600 hover:bg-red-700 px-4 py-2 rounded">
-    Ver comentarios
-  </button>
-` : ""}
+       ${!isTopRated ? `
+      <button onclick="showCommentsModal('${movieId}')" class="mt-3 text-sm bg-red-600 hover:bg-red-700 px-4 py-2 rounded">
+        Ver comentarios
+      </button>
+    ` : ""}
+
+
+
+
+
       </div>
+
+      
+
     `;
 }
 
@@ -139,19 +174,22 @@ function loadOtherMovies(myUid) {
   contenedor.innerHTML = "";
 
   firebase.database().ref("/movies").once("value", snapshot => {
+    const movies = [];
+
     snapshot.forEach(userSnap => {
       if (userSnap.key !== myUid) {
         userSnap.forEach(child => {
           const m = child.val();
           const key = child.key;
-          contenedor.innerHTML += renderMovieCard(m, key);
-          calculateAverageRating(key);
+          movies.push({ ...m, key });
         });
       }
     });
-    activarSistemaDePuntuacion();
+
+    renderMovieListOptimized(movies, "other-movies");
   });
 }
+
 function loadTopRatedMovies() {
   const topRatedContainer = document.getElementById("top-rated-slides");
   if (!topRatedContainer) return;
@@ -164,7 +202,7 @@ function loadTopRatedMovies() {
       const values = Object.values(users);
       const avg = values.reduce((a, b) => a + b, 0) / values.length;
       return { movieId, avg };
-    }).sort((a, b) => b.avg - a.avg).slice(0, 10); // Top 10
+    }).sort((a, b) => b.avg - a.avg).slice(0, 10);
 
     firebase.database().ref("/movies").once("value", movieSnap => {
       const allMovies = [];
@@ -174,37 +212,42 @@ function loadTopRatedMovies() {
         });
       });
 
+      const seenTitles = new Set();
+      const selectedMovies = [];
+
+      avgRatings.forEach(({ movieId, avg }) => {
+        const movie = allMovies.find(m => m.key === movieId);
+        if (movie && !seenTitles.has(movie.title)) {
+          seenTitles.add(movie.title);
+          selectedMovies.push({ ...movie, key: movieId, avgRating: avg.toFixed(1) });
+        }
+      });
+
       topRatedContainer.innerHTML = "";
 
-      const seenTitles = new Set();
-
-      const slides = [];
-
-    avgRatings.forEach(({ movieId, avg }) => {
-      const movie = allMovies.find(m => m.key === movieId);
-      if (movie && !seenTitles.has(movie.title)) {
-        seenTitles.add(movie.title);
-
+      selectedMovies.forEach(movie => {
         const slide = document.createElement("div");
         slide.className = "swiper-slide";
-        slide.innerHTML = renderMovieCard(movie, movieId, false, true);
-        slides.push(slide);
-        calculateAverageRating(movieId);
-      }
-    });
+        slide.innerHTML = renderMovieCard(movie, movie.key, false, true, false, movie.avgRating);
+        topRatedContainer.appendChild(slide);
+      });
 
-    slides.forEach(slide => topRatedContainer.appendChild(slide));
-    slides.forEach(slide => topRatedContainer.appendChild(slide.cloneNode(true)));
+      selectedMovies.forEach(movie => {
+        const slide = document.createElement("div");
+        slide.className = "swiper-slide";
+        slide.innerHTML = renderMovieCard(movie, movie.key, false, true, false, movie.avgRating);
+        topRatedContainer.appendChild(slide);
+      });
 
-      activarSistemaDePuntuacion();
-     
-      const canLoop = true;
-
+      setTimeout(() => {
+        selectedMovies.forEach(m => calculateAverageRating(m.key));
+        activarSistemaDePuntuacion();
+      }, 50);
 
       new Swiper(".topSwiper", {
         slidesPerView: 1,
         spaceBetween: 20,
-        loop: canLoop,
+        loop: true,
         autoplay: {
           delay: 1500,
           disableOnInteraction: false,
@@ -215,10 +258,11 @@ function loadTopRatedMovies() {
           1024: { slidesPerView: 4 },
         }
       });
-
     });
   });
 }
+
+
 loadTopRatedMovies();
 
 function loadFavorites(uid) {
@@ -231,13 +275,14 @@ function loadFavorites(uid) {
       return;
     }
 
+    const movies = [];
     snapshot.forEach(child => {
       const m = child.val();
       const key = child.key;
-      contenedor.innerHTML += renderMovieCard(m, key);
-      calculateAverageRating(key);
+      movies.push({ ...m, key });
     });
-    activarSistemaDePuntuacion();
+    renderMovieListOptimized(movies, "favorites-container");
+
   });
 }
 
@@ -342,13 +387,14 @@ window.loadMyMovies = function (uid) {
       return;
     }
 
+    const movies = [];
     snapshot.forEach(child => {
       const m = child.val();
       const key = child.key;
-      contenedor.innerHTML += renderMovieCard(m, key, true); 
-      calculateAverageRating(key);
+      movies.push({ ...m, key });
     });
-    activarSistemaDePuntuacion();
+    renderMovieListOptimized(movies, "my-movies");
+
   });
 };
 
@@ -404,6 +450,7 @@ window.generateRecommendation = async function (event) {
     const ratingsSnap = await firebase.database().ref("/ratings").once("value");
     const ratingsData = ratingsSnap.val() || {};
 
+
     const moviesSnap = await firebase.database().ref("/movies").once("value");
     let matches = [];
 
@@ -438,23 +485,8 @@ window.generateRecommendation = async function (event) {
     } else {
       result.innerHTML = "";
 
-      matches.forEach(movie => {
-        const movieId = movie.key;
-        result.innerHTML += renderMovieCard(movie, movie.key, false, false, false, movie.avgRating);
-      });
+      renderMovieListOptimized(matches, "recommendation-result");
 
-      matches.forEach(movie => {
-        const movieId = movie.key;
-
-        getAverageRating(movieId, avg => {
-          const ratingElement = document.getElementById(`rating-${movieId}`);
-          if (ratingElement) {
-            ratingElement.innerText = avg || "Sin votos";
-          }
-        });
-      });
-
-      activarSistemaDePuntuacion();
     }
   } catch (error) {
     console.error("Error en generateRecommendation:", error);
@@ -479,7 +511,7 @@ window.toggleFavorite = function (peliculaEncoded, movieId) {
           showToast("Película eliminada de favoritos");
           const favSection = document.getElementById("favorites-section");
           if (!favSection.classList.contains("hidden")) {
-            loadFavorites(uid); 
+            loadFavorites(uid);
           }
         });
     } else {
@@ -488,7 +520,7 @@ window.toggleFavorite = function (peliculaEncoded, movieId) {
           showToast("Película añadida a favoritos");
           const favSection = document.getElementById("favorites-section");
           if (!favSection.classList.contains("hidden")) {
-            loadFavorites(uid); 
+            loadFavorites(uid);
           }
         });
     }
@@ -548,7 +580,6 @@ window.addMovie = async function () {
     showToast("Error al guardar la película", "error");
   }
 };
-
 
 
 window.deleteMovie = function (movieId) {
@@ -635,41 +666,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
 
-  document.getElementById("send-comment").addEventListener("click", () => {
-    const user = firebase.auth().currentUser;
-    const input = document.getElementById("new-comment");
-    const text = input.value.trim();
+  document.getElementById("send-comment").addEventListener("click", () => submitComment(currentMovieId));
 
-    if (!user) {
-      showToast("Debes iniciar sesión para comentar", "error");
-      return;
-    }
-    if (!text) {
-      showToast("El comentario no puede estar vacío", "error");
-      return;
-    }
-
-    if (!currentMovieId) {
-      showToast("Error interno: no hay película seleccionada.", "error");
-      return;
-    }
-
-    const newComment = {
-      uid: user.uid,
-      text: text,
-      timestamp: Date.now()
-    };
-
-    firebase.database().ref(`/comments/${currentMovieId}`).push(newComment)
-      .then(() => {
-        showToast("Comentario publicado");
-        input.value = ""; 
-      })
-      .catch((error) => {
-        console.error(error);
-        showToast("Error al publicar comentario", "error");
-      });
-  });
 
 
 
@@ -685,17 +683,16 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 
-
-
-window.postComment = function (movieId) {
+function submitComment(movieId, inputId = "new-comment") {
   const user = firebase.auth().currentUser;
   if (!user) {
     return showToast("Debes iniciar sesión para comentar", "error");
   }
 
-  const input = document.getElementById(`comment-input-${movieId}`);
-  const text = input.value.trim();
+  const input = document.getElementById(inputId);
+  if (!input) return;
 
+  const text = input.value.trim();
   if (!text) {
     return showToast("El comentario no puede estar vacío", "error");
   }
@@ -710,13 +707,18 @@ window.postComment = function (movieId) {
     .then(() => {
       showToast("Comentario publicado");
       input.value = "";
-      loadComments(movieId); 
+      if (typeof loadComments === "function") {
+        loadComments(movieId);
+      }
     })
     .catch((error) => {
       console.error(error);
       showToast("Error al publicar comentario", "error");
     });
-};
+}
+
+
+
 
 function loadComments(movieId) {
   const container = document.getElementById(`comments-${movieId}`);
