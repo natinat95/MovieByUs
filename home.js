@@ -57,10 +57,6 @@ function getAverageRating(movieId, callback) {
 function calculateAverageRating(movieId) {
   getAverageRating(movieId, avg => {
     const span = document.getElementById(`rating-${movieId}`);
-    if (!span) {
-      console.warn("No se encontró el elemento para la puntuación de", movieId);
-      return;
-    }
     span.innerText = avg || "Sin votos";
   });
 }
