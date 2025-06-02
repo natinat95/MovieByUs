@@ -24,6 +24,7 @@
     </div>
   </div>
 
+  <!-- Header con Swiper slider -->
   <header class="w-full relative">
     <div class="swiper mySwiper">
       <div class="swiper-wrapper">
@@ -77,6 +78,7 @@
       <div class="swiper-pagination"></div>
     </div>
 
+    <!-- Logo mejorado -->
     <div class="logo-container" id="logoContainer">
       <div class="container mx-auto px-6 flex justify-between items-center">
         <div class="logo-content flex items-center">
@@ -155,7 +157,7 @@
                 </div>
               </div>
 
-              <button onclick="login()"
+              <button id="login-button"
                 class="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold py-4 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-red-600/30 flex items-center justify-center gap-2">
                 <span>Entrar</span>
                 <i class="fas fa-arrow-right animated-icon"></i>
@@ -229,6 +231,7 @@
           </div>
     </section>
 
+    <!-- Seccion testimonios reales -->
     <section class="testimonials py-16 bg-gradient-to-b from-black to-gray-900">
       <div class="container mx-auto px-6">
         <h2 class="text-3xl md:text-4xl font-bold mb-16 text-center">
@@ -282,7 +285,6 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
   <script src="firebase-config.js"></script>
-  <script src="app.js"></script>
   <div id="cookie-overlay"
     class="fixed inset-0 bg-black bg-opacity-80 z-40 opacity-0 pointer-events-none transition-opacity duration-500">
   </div>
