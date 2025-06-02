@@ -65,7 +65,7 @@ function calculateAverageRating(movieId) {
   });
 }
 
-function renderMovieListOptimized(movies, containerId) {
+function renderMovieListOptimized(movies, containerId, isMine = false) {
   const container = document.getElementById(containerId);
   if (!container) {
     console.warn("Contenedor no encontrado:", containerId);
@@ -74,7 +74,7 @@ function renderMovieListOptimized(movies, containerId) {
 
   const html = movies.map(movie => {
     const movieId = movie.key || btoa((movie.title + "-" + movie.duration).toLowerCase());
-    return renderMovieCard(movie, movieId, false, false, false, movie.avgRating);
+    return renderMovieCard(movie, movieId, isMine, false, false, movie.avgRating);
   }).join("");
 
   container.innerHTML = html;
@@ -393,7 +393,7 @@ window.loadMyMovies = function (uid) {
       const key = child.key;
       movies.push({ ...m, key });
     });
-    renderMovieListOptimized(movies, "my-movies");
+    renderMovieListOptimized(movies, "my-movies", true);
 
   });
 };
@@ -548,18 +548,23 @@ window.addMovie = async function () {
 
   const movieRef = firebase.database().ref(`/movies/${userUid}`);
   try {
-    const snapshot = await movieRef.once("value");
+    const snapshot = await firebase.database().ref("/movies").once("value");
     let duplicated = false;
 
-    snapshot.forEach(child => {
-      const m = child.val();
-      if (
-        normalize(m.title) === titleNorm &&
-        m.genre === genre
-      ) {
-        duplicated = true;
-      }
+    snapshot.forEach(userSnap => {
+      userSnap.forEach(child => {
+        const m = child.val();
+        if (
+          m.title &&
+          m.genre &&
+          normalize(m.title) === titleNorm &&
+          m.genre.trim().toLowerCase() === genre.toLowerCase()
+        ) {
+          duplicated = true;
+        }
+      });
     });
+
 
     if (duplicated) {
       return showToast("Ya tienes una película con ese título y género", "error");
